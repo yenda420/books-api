@@ -84,17 +84,19 @@ public class AuthorControllerTests {
     @Test
     public void testGetAllBody() throws Exception {
         AuthorEntity author = TestDataUtil.createAuthor();
-        AuthorEntity savedAuthor = authorService.save(author);
+        authorService.save(author);
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/authors")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .param("page", "0")
+                        .param("size", "1")
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$[1].id").isNumber()
+                MockMvcResultMatchers.jsonPath("$[0].id").isNumber()
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$[1].name").value(savedAuthor.getName())
+                MockMvcResultMatchers.jsonPath("$[0].name").value(author.getName())
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$[1].age").value(savedAuthor.getAge())
+                MockMvcResultMatchers.jsonPath("$[0].age").value(author.getAge())
         );
     }
 

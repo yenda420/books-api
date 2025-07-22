@@ -1,5 +1,6 @@
 package com.yenda.api.repositories;
 
+import com.yenda.api.domain.entities.AuthorEntity;
 import com.yenda.api.domain.entities.BookEntity;
 import com.yenda.api.utils.TestDataUtil;
 
@@ -51,7 +52,12 @@ public class BookRepositoryTests {
         int i = 0;
 
         for (BookEntity book : books) {
-            bookList.get(i).getAuthor().setId(book.getAuthor().getId());
+            AuthorEntity expectedAuthor = book.getAuthor();
+            if (expectedAuthor == null) {
+                continue;
+            }
+
+            bookList.get(i).getAuthor().setId(expectedAuthor.getId());
             i++;
         }
 

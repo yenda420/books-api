@@ -78,9 +78,7 @@ public class BookControllerTests {
     @Test
     public void testGetAllBody() throws Exception {
         BookEntity book = TestDataUtil.createBook(null);
-        BookEntity savedBook = bookService.createUpdate(book);
-
-        System.out.println("Created book: " + savedBook.getIsbn());
+        bookService.createUpdate(book);
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/books")
